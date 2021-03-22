@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Dashboard from './pages/Dashboard'
 
-const Routes = () => {
+function Routes() {
     return (
         <BrowserRouter>
             <Switch>
@@ -13,4 +13,4 @@ const Routes = () => {
     )
 }
 
-export default { Routes }
+export default Routes
