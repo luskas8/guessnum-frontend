@@ -1,30 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
+
+import { QuestionContext } from '../contexts/QuestionContext'
 
 import ActionButton from '../components/ActionButton'
-import { QuestionContext, Question } from '../contexts/QuestionContext'
+import Question from '../components/Question'
+
 
 function Dashboard() {
-    const { sortQuestion } = useContext(QuestionContext)
-    const defaultQuestion: Question = {
-        question: "O número é maior menor ou igual ao que pensou?",
-        value: 0
-    }
-
-    const [question, setQuestion] = useState<Question>(defaultQuestion)
-    const [isQuestionDefauld, setIsQuestionDefault] = useState(false)
-    useEffect(() => {
-        let question: Question | null = sortQuestion()
-        console.log(question)
-
-        if (question != null) {
-            setQuestion(question)
-            setIsQuestionDefault(false)
-        } else {
-            setQuestion(defaultQuestion)
-            setIsQuestionDefault(true)
-        }
-    }, [])
-
+    const { theNumber, currentQuestion } = useContext(QuestionContext)
 
     return (
         <div className="container">
@@ -33,23 +16,14 @@ function Dashboard() {
             </header>
 
             <main>
-                <div className="question">
-                    <span>{question.question}</span>
-                </div>
-                {
-                    !isQuestionDefauld && (
-                        <div className="input-block">
-                            <input type="number" name="resposta"/>
-                        </div>
-                    )
-                }
+                <Question question={currentQuestion.text} questionId={currentQuestion.id} />
                 <div className="number">
-                    Nosso chute: <span>{0}</span>
+                    Nosso chute: <span>{theNumber}</span>
                 </div>
                 <div className="interaction">
-                    <ActionButton text="Maior >" key={1} />
-                    <ActionButton text="Igual =" key={2} />
-                    <ActionButton text="Menor <" key={3} />
+                    <ActionButton text="Maior >" key={1} value=">" />
+                    <ActionButton text="Igual =" key={2} value="=" />
+                    <ActionButton text="Menor <" key={3} value="<" />
                 </div>
             </main>
         </div>
