@@ -1,16 +1,15 @@
 import React, { ChangeEvent, FormEvent, useContext, useState } from 'react'
-import { QuestionContext } from '../contexts/QuestionContext'
+import { QuestionContext, Question as QuestionContextProps } from '../contexts/QuestionContext'
 
 interface QuestionProps {
-  question: string
-  questionId: number
+  question: QuestionContextProps
 }
 
-function Question({ question, questionId, ...rest}: QuestionProps) {
-  const { getQuestionAnswer } = useContext(QuestionContext)
+function Question({ question, ...rest}: QuestionProps) {
+  const { getQuestionAnswer, changeQuestion } = useContext(QuestionContext)
   const regexp = /^[0-9\b]+$/
 
-  const [answer, setAnswer] = useState(1)
+  const [answer, setAnswer] = useState(question.value)
 
   function handleInput(e: ChangeEvent<HTMLInputElement>) {
 
@@ -22,29 +21,28 @@ function Question({ question, questionId, ...rest}: QuestionProps) {
     return undefined
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
 
-    if (questionId !== 0) {
-      getQuestionAnswer(questionId, answer)
-    } else {
-      console.log('a')
-    }
+    getQuestionAnswer(question.id, answer).then(() => {
+      changeQuestion()
+      setAnswer(question.value)
+    })
   }
 
   return (
     <div className="question">
       <form onSubmit={handleSubmit}>
-        <label htmlFor={`resposta_${questionId}`} >
-          {question}
+        <label htmlFor={`resposta_${question.id}`} >
+          {question.text}
         </label>
         {
-          (questionId !== 0) && (
+          (question.id !== 0) && (
           <>
             <input
               type="number"
-              name={`resposta_${questionId}`}
-              id={`resposta_${questionId}`}
+              name={`resposta_${question.id}`}
+              id={`resposta_${question.id}`}
               value={answer}
               min={1}
               max={8000}

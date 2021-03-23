@@ -21,15 +21,21 @@ function Dashboard() {
                         <h1>Número achado!</h1>
                     ) : (
                         <>
-                            <Question question={currentQuestion.text} questionId={currentQuestion.id} />
-                            <div className="number">
-                                nosso chute? <span>{theNumber}</span>
-                            </div>
-                            <div className="interaction">
-                                <ActionButton text="Maior >" key={1} value=">" />
-                                <ActionButton text="Igual =" key={2} value="=" />
-                                <ActionButton text="Menor <" key={3} value="<" />
-                            </div>
+                            <Question question={currentQuestion} />
+                            {
+                                (currentQuestion.id === 0) && (
+                                    <>
+                                        <div className="number">
+                                            nosso chute? <span>{theNumber}</span>
+                                        </div>
+                                        <div className="interaction">
+                                            <ActionButton text="Maior >" key={1} value=">" />
+                                            <ActionButton text="Igual =" key={2} value="=" />
+                                            <ActionButton text="Menor <" key={3} value="<" />
+                                        </div>
+                                    </>
+                                )
+                            }
                         </>
                     )
                 }

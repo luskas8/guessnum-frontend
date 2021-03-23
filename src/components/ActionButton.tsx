@@ -6,10 +6,10 @@ interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function ActionButton({ text, ...rest }: ActionButtonProps) {
-    const { swithRange } = useContext(QuestionContext)
+    const { switchRange } = useContext(QuestionContext)
 
     return (
-        <button {...rest} onClick={evt => swithRange(evt.currentTarget.value)} >
+        <button {...rest} onClick={evt => switchRange(evt.currentTarget.value)} >
             {text}
         </button>
     )
