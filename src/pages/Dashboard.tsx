@@ -7,7 +7,7 @@ import Question from '../components/Question'
 
 
 function Dashboard() {
-    const { theNumber, currentQuestion } = useContext(QuestionContext)
+    const { theNumber, currentQuestion, hasFound } = useContext(QuestionContext)
 
     return (
         <div className="container">
@@ -16,15 +16,23 @@ function Dashboard() {
             </header>
 
             <main>
-                <Question question={currentQuestion.text} questionId={currentQuestion.id} />
-                <div className="number">
-                    Nosso chute: <span>{theNumber}</span>
-                </div>
-                <div className="interaction">
-                    <ActionButton text="Maior >" key={1} value=">" />
-                    <ActionButton text="Igual =" key={2} value="=" />
-                    <ActionButton text="Menor <" key={3} value="<" />
-                </div>
+                {
+                    hasFound ? (
+                        <h1>Número achado!</h1>
+                    ) : (
+                        <>
+                            <Question question={currentQuestion.text} questionId={currentQuestion.id} />
+                            <div className="number">
+                                nosso chute? <span>{theNumber}</span>
+                            </div>
+                            <div className="interaction">
+                                <ActionButton text="Maior >" key={1} value=">" />
+                                <ActionButton text="Igual =" key={2} value="=" />
+                                <ActionButton text="Menor <" key={3} value="<" />
+                            </div>
+                        </>
+                    )
+                }
             </main>
         </div>
     )

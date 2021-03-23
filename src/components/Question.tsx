@@ -38,19 +38,25 @@ function Question({ question, questionId, ...rest}: QuestionProps) {
         <label htmlFor={`resposta_${questionId}`} >
           {question}
         </label>
-        <input
-          type="number"
-          name={`resposta_${questionId}`}
-          id={`resposta_${questionId}`}
-          value={answer}
-          min={2}
-          max={8000}
-          onChange={handleInput}
-        />
+        {
+          (questionId !== 0) && (
+          <>
+            <input
+              type="number"
+              name={`resposta_${questionId}`}
+              id={`resposta_${questionId}`}
+              value={answer}
+              min={1}
+              max={8000}
+              onChange={handleInput}
+            />
 
-        <button type="submit">
-          Enviar
-        </button>
+            <button type="submit">
+              Enviar
+            </button>
+          </>
+          )
+        }
       </form>
     </div>
   )
